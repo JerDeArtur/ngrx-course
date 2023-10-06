@@ -3,9 +3,10 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {distinctUntilChanged, map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
-import {AppState} from './reducers';
-import {isLoggedIn, isLoggedOut} from './auth/auth.selectors';
-import {login, logout} from './auth/auth.actions';
+import { AuthState } from './auth/reducers';
+import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
+import { AuthActions } from './auth/action-types';
+import { login } from './auth/auth.actions';
 
 @Component({
     selector: 'app-root',
@@ -17,11 +18,9 @@ export class AppComponent implements OnInit {
     loading = true;
 
     isLoggedIn$: Observable<boolean>;
-
     isLoggedOut$: Observable<boolean>;
 
-    constructor(private router: Router,
-                private store: Store<AppState>) {
+    constructor(private router: Router, private store: Store<AuthState>) {
 
     }
 
@@ -62,12 +61,20 @@ export class AppComponent implements OnInit {
                 select(isLoggedOut)
             );
 
+      this.isLoggedIn$ = this.store
+      .pipe(
+        select(isLoggedIn)
+      );
+
+      this.isLoggedOut$ = this.store
+      .pipe(
+        select(isLoggedOut)
+      );
+
     }
 
     logout() {
-
-        this.store.dispatch(logout());
-
+      this.store.dispatch(AuthActions.logout())
     }
 
 }

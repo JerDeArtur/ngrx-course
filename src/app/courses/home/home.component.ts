@@ -4,8 +4,9 @@ import {Observable} from 'rxjs';
 import {defaultDialogConfig} from '../shared/default-dialog-config';
 import {EditCourseDialogComponent} from '../edit-course-dialog/edit-course-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {map} from 'rxjs/operators';
-import {CourseEntityService} from '../services/course-entity.service';
+import {map, shareReplay} from 'rxjs/operators';
+import { CourseEntityService } from '../services/course-entity.service';
+
 
 
 @Component({
@@ -34,21 +35,11 @@ export class HomeComponent implements OnInit {
 
   reload() {
 
-    this.beginnerCourses$ = this.coursesService.entities$
-      .pipe(
-        map(courses => courses.filter(course => course.category == 'BEGINNER'))
-      );
+    this.beginnerCourses$ = this.coursesService.entities$.pipe((map(courses => courses.filter(c => c.category === 'BEGINNER'))));
 
-    this.advancedCourses$ = this.coursesService.entities$
-      .pipe(
-        map(courses => courses.filter(course => course.category == 'ADVANCED'))
-      );
+    this.advancedCourses$ = this.coursesService.entities$.pipe((map(courses => courses.filter(c => c.category === 'ADVANCED'))));
 
-    this.promoTotal$ = this.coursesService.entities$
-        .pipe(
-            map(courses => courses.filter(course => course.promo).length)
-        );
-
+    this.promoTotal$ = this.coursesService.entities$.pipe((map(courses => courses.filter(course => course.promo).length)));
   }
 
   onAddCourse() {

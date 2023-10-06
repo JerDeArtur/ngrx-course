@@ -25,94 +25,89 @@ import {EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ng
 import {compareCourses, Course} from './model/course';
 
 import {compareLessons, Lesson} from './model/lesson';
-import {CourseEntityService} from './services/course-entity.service';
-import {CoursesResolver} from './services/courses.resolver';
-import {CoursesDataService} from './services/courses-data.service';
-import {LessonEntityService} from './services/lesson-entity.service';
+import { StoreModule } from '@ngrx/store';
+import { resolveCourses } from './courses.resolver';
+import { EffectsModule } from '@ngrx/effects';
+import { CourseEntityService } from './services/course-entity.service';
+import { CoursesDataService } from './services/corses-data.service';
 
 
 export const coursesRoutes: Routes = [
-    {
-        path: '',
-        component: HomeComponent,
-        resolve: {
-            courses: CoursesResolver
-        }
-    },
-    {
-        path: ':courseUrl',
-        component: CourseComponent,
-        resolve: {
-            courses: CoursesResolver
-        }
+  {
+    path: '',
+    component: HomeComponent,
+    resolve: {
+      courses: resolveCourses
     }
+  },
+  {
+    path: ':courseUrl',
+    component: CourseComponent,
+    resolve: {
+      courses: resolveCourses
+    }
+  }
 ];
 
 const entityMetadata: EntityMetadataMap = {
-    Course: {
-        sortComparer: compareCourses,
-        entityDispatcherOptions: {
-            optimisticUpdate: true
-        }
-    },
-    Lesson: {
-        sortComparer: compareLessons
+  Course: {
+    sortComparer: compareCourses,
+    entityDispatcherOptions: {
+      optimisticUpdate: true
     }
+  }
 };
 
 
+
 @NgModule({
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatTabsModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatProgressSpinnerModule,
-        MatSlideToggleModule,
-        MatDialogModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatMomentDateModule,
-        ReactiveFormsModule,
-        RouterModule.forChild(coursesRoutes)
-    ],
-    declarations: [
-        HomeComponent,
-        CoursesCardListComponent,
-        EditCourseDialogComponent,
-        CourseComponent
-    ],
-    exports: [
-        HomeComponent,
-        CoursesCardListComponent,
-        EditCourseDialogComponent,
-        CourseComponent
-    ],
-    providers: [
-        CoursesHttpService,
-        CourseEntityService,
-        LessonEntityService,
-        CoursesResolver,
-        CoursesDataService
-    ]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(coursesRoutes),
+  ],
+  declarations: [
+    HomeComponent,
+    CoursesCardListComponent,
+    EditCourseDialogComponent,
+    CourseComponent
+  ],
+  exports: [
+    HomeComponent,
+    CoursesCardListComponent,
+    EditCourseDialogComponent,
+    CourseComponent
+  ],
+  providers: [
+    CoursesHttpService,
+    CourseEntityService,
+    CoursesDataService
+  ]
 })
 export class CoursesModule {
 
-    constructor(
-        private eds: EntityDefinitionService,
-        private entityDataService: EntityDataService,
-        private coursesDataService: CoursesDataService) {
-
-        eds.registerMetadataMap(entityMetadata);
-
-        entityDataService.registerService('Course', coursesDataService);
-
-    }
+  constructor(
+    private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService,
+    private coursesDataService: CoursesDataService
+  ) {
+    eds.registerMetadataMap(entityMetadata);
+    entityDataService.registerService('Course', coursesDataService);
+  }
 
 
 }
