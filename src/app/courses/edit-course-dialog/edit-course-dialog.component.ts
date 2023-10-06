@@ -60,27 +60,18 @@ export class EditCourseDialogComponent {
     }
 
     onSave() {
+      const course: Course = {
+          ...this.course,
+          ...this.form.value
+      };
 
-        const course: Course = {
-            ...this.course,
-            ...this.form.value
-        };
-
-        if (this.mode == 'update') {
-
-    const update: Update<Course> = {
-      id: course.id,
-      changes: course
-    };
-
-    // this.store.dispatch(CoursesActions.courseUpdated({update}));
-    if(this.mode == 'update'){
-      this.coursesService.update(course)
-      this.dialogRef.close()
+      if (this.mode == 'update') {
+        this.coursesService.update(course)
+        this.dialogRef.close()
+      }else if(this.mode == 'create'){
+        this.coursesService.add(course).subscribe(() => {
+          this.dialogRef.close()
+        })
+      }
     }
-
-    }
-
-
-}
 }
