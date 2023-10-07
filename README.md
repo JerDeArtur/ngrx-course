@@ -7,7 +7,6 @@ This course repository is updated to Angular v16:
 
 ![Ngrx (with NgRx Data) - The Complete Guide](https://angular-university.s3-us-west-1.amazonaws.com/course-images/ngrx-v2.png)
 
-
 # Installation pre-requisites
 
 For taking the course we recommend installing Node 18 Long Term Support Edition (LTE).
