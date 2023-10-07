@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {distinctUntilChanged, map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import { AuthState } from './auth/reducers';
 import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';

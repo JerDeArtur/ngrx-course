@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Course} from '../model/course';
 import {Observable} from 'rxjs';
 import {Lesson} from '../model/lesson';
-import {concatMap, delay, filter, first, map, shareReplay, tap, withLatestFrom} from 'rxjs/operators';
-import {CoursesHttpService} from '../services/courses-http.service';
+import {delay, map, tap, withLatestFrom} from 'rxjs/operators';
 import { CourseEntityService } from '../services/course-entity.service';
 import { LessonEntityService } from '../services/lesson-entity.service';
 import { ChangeDetectionStrategy } from '@angular/core';

@@ -1,10 +1,8 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Course} from '../model/course';
-import {FormBuilder, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {FormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import { Store } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
 import { CourseEntityService } from '../services/course-entity.service';
 
 @Component({
